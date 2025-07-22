@@ -2,7 +2,7 @@
 /**
  * Plugin Name: DVLY Bricks Elements
  * Description: Custom Bricks Builder elements by DVLY for WooCommerce and more.
- * Version: 1.0.2
+ * Version: 1.0.4
  * Author: DVLY
  * 
  * Update URI: https://github.com/devvly/dvly-bricks-elements
@@ -29,7 +29,9 @@ $dvly_config = [
     ]
 ];
 
-// Register Bricks elements
+/**
+ * Register Bricks elements
+ */
 add_action('init', function () use ($dvly_config) {
     foreach ($dvly_config['element_slugs'] as $slug) {
         $file = plugin_dir_path(__FILE__) . "elements/{$slug}.php";
@@ -39,7 +41,9 @@ add_action('init', function () use ($dvly_config) {
     }
 }, 11);
 
-// Enqueue element styles
+/**
+ * Enqueue styles
+ */
 add_action('wp_enqueue_scripts', function () use ($dvly_config) {
     $base_dir = plugin_dir_path(__FILE__) . 'elements/';
     $base_uri = plugin_dir_url(__FILE__) . 'elements/';
@@ -58,6 +62,13 @@ add_action('wp_enqueue_scripts', function () use ($dvly_config) {
 });
 
 /**
+ * TEMP: Force update check during debugging
+ */
+add_action('admin_init', function () {
+    delete_site_transient('update_plugins');
+});
+
+/**
  * GitHub-based update check
  */
 add_filter('site_transient_update_plugins', function ($transient) use ($dvly_config) {
@@ -70,12 +81,16 @@ add_filter('site_transient_update_plugins', function ($transient) use ($dvly_con
     if (is_wp_error($response)) return $transient;
 
     $release = json_decode(wp_remote_retrieve_body($response));
-    file_put_contents(__DIR__ . '/update-log.txt', print_r($release, true));
-    
     if (!isset($release->tag_name)) return $transient;
 
     $new_version = ltrim($release->tag_name, 'v');
-    $current_version = get_plugin_data(__FILE__)['Version'];
+
+    // Use get_file_data instead of get_plugin_data to avoid issues
+    $plugin_data = get_file_data(__FILE__, ['Version' => 'Version'], 'plugin');
+    $current_version = $plugin_data['Version'];
+
+    // Optional debug
+    file_put_contents(__DIR__ . '/update-debug.txt', "Current: {$current_version}, Latest: {$new_version}");
 
     if (version_compare($new_version, $current_version, '>')) {
         $transient->response[$dvly_config['plugin_file']] = (object) [

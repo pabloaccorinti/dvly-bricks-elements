@@ -11,7 +11,7 @@ class Brxe_Dvly_Logo_Grid extends \Bricks\Element
 
     public function get_label()
     {
-        return esc_html__('DVLY Logo Grid', 'bricks');
+        return esc_html__('Logo Grid', 'bricks');
     }
 
     public function set_control_groups()

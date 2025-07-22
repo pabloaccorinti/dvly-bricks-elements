@@ -11,7 +11,7 @@ class Brxe_Dvly_Call_To_Action extends \Bricks\Element
 
     public function get_label()
     {
-        return esc_html__('Dvly Call to Action', 'bricks');
+        return esc_html__('Call to Action', 'bricks');
     }
 
     public function set_control_groups()
@@ -64,7 +64,7 @@ class Brxe_Dvly_Call_To_Action extends \Bricks\Element
             'type' => 'typography',
             'group' => 'appearance',
             'css' => [
-                ['selector' => '{{SELECTOR}} .brxe-dvly-call-to-action-above-title'],
+                ['selector' => '.brxe-dvly-call-to-action-above-title'],
             ],
         ];
         $this->controls['cta_title'] = [
@@ -78,7 +78,7 @@ class Brxe_Dvly_Call_To_Action extends \Bricks\Element
             'type' => 'typography',
             'group' => 'appearance',
             'css' => [
-                ['selector' => '{{SELECTOR}} .brxe-dvly-call-to-action-title'],
+                ['selector' => '.brxe-dvly-call-to-action-title'],
             ],
         ];
         $this->controls['cta_description'] = [
@@ -92,7 +92,7 @@ class Brxe_Dvly_Call_To_Action extends \Bricks\Element
             'type' => 'typography',
             'group' => 'appearance',
             'css' => [
-                ['selector' => '{{SELECTOR}} .brxe-dvly-call-to-action-description'],
+                ['selector' => '.brxe-dvly-call-to-action-description'],
             ],
         ];
         $this->controls['cta_button'] = [

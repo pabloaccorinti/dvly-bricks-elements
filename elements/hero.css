@@ -4,7 +4,7 @@
 }
 
 .brxe-dvly-hero .brxe-dvly-hero-content {
-    padding: 120px 24px;
+    padding: var(--gap-3xl) var(--gap-s);
 }
 
 .brxe-dvly-hero-title, .brxe-dvly-hero-subtitle, .brxe-dvly-hero-above-title {
@@ -31,3 +31,5 @@
 .brxe-dvly-hero-buttons a {
     white-space: nowrap;
 }
+
+/*Comment*/

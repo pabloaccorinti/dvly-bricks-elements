@@ -125,15 +125,16 @@ class Brxe_Dvly_Featured_Product_Categories extends \Bricks\Element
                     'property' => 'width',
                     'value' => '100%',
                     'selector' => '.brxe-dvly-featured-product-categories-container',
+                    'condition' => ['full_width' => true],
                 ],
                 [
                     'property' => 'max-width',
                     'value' => '100%',
                     'selector' => '.brxe-dvly-featured-product-categories-container',
-                ]
+                    'condition' => ['full_width' => true],
+                ],
             ],
         ];
-
 
         // Updated Gap Control (Using Bricks example)
 
@@ -154,9 +155,9 @@ class Brxe_Dvly_Featured_Product_Categories extends \Bricks\Element
             'tab' => 'content',
             'group' => 'appearance',
             'label' => esc_html__('Gap Between Items', 'bricks'),
-            'type' => 'number', // Keep it as a number control
-            'unit' => '', // No unit here
-            'default' => 'var(--gap-s)',
+            'type' => 'number',
+            'unit' => 'px',
+            'default' => '16',
             'inline' => true,
             'live' => true,
         ];
@@ -219,9 +220,8 @@ class Brxe_Dvly_Featured_Product_Categories extends \Bricks\Element
             ? 'grid-template-columns: repeat(' . (int) $settings['columns'] . ', 1fr);'
             : '';
 
-        $grid_gap = isset($settings['gap_between_items']) && is_numeric($settings['gap_between_items'])
-            ? $settings['gap_between_items'] . 'px'
-            : $settings['gap_between_items'];
+        $gap_value = $settings['gap_between_items'] ?? null;
+        $grid_gap = is_numeric($gap_value) ? $gap_value . 'px' : 'var(--gap-s)';
 
         $args = ['taxonomy' => 'product_cat', 'hide_empty' => true];
         if (!empty($selected_categories)) {
@@ -250,8 +250,8 @@ class Brxe_Dvly_Featured_Product_Categories extends \Bricks\Element
         if (!empty($settings['full_width'])) {
             $grid_style .= ' padding-left: ' . $grid_gap . '; padding-right: ' . $grid_gap . ';';
         }
-        
-        echo '<div class="brxe-dvly-featured-product-categories-grid" style="' . esc_attr($grid_style) . '">';        
+
+        echo '<div class="brxe-dvly-featured-product-categories-grid" style="' . esc_attr($grid_style) . '">';
 
         if (!empty($product_categories) && !is_wp_error($product_categories)) {
             foreach ($product_categories as $category) {

@@ -23,10 +23,17 @@
   margin: 0 var(--gap-2xs);
 }
 
-.brxe-dvly-call-to-action-buttons .brxe-button {
-  margin: 0 var(--gap-2xs);
+.brxe-dvly-call-to-action-buttons .brxe-button:first-child {
+  margin: 0 var(--gap-xs) 0 0;
 }
 
+.brxe-dvly-call-to-action-buttons .brxe-button:last-child {
+  margin: 0 0 0 var(--gap-xs);
+}
+
+.brxe-dvly-call-to-action-buttons .brxe-button:only-child {
+  margin: 0;
+}
 .brxe-dvly-call-to-action-above-title {
   color: var(--white);
 }

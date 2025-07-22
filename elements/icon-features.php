@@ -34,6 +34,7 @@ class Brxe_Dvly_Icon_Features extends \Bricks\Element
             'tab' => 'content',
             'label' => esc_html__('Alignment', 'bricks'),
             'type' => 'text-align',
+            'default' => 'center',
             'css' => [
                 [
                     'property' => 'text-align',
